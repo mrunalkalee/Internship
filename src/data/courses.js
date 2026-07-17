@@ -2,7 +2,23 @@
 // In a real product this would come from an API — here it powers
 // search, category filters, and the "Continue Learning" section.
 
-export const categories = ["All", "Development", "Cloud", "Design", "DevOps"];
+export const categories = [
+  "All",
+  "Development",
+  "Cloud",
+  "Design",
+  "DevOps",
+  "Favorites",
+];
+
+export const sortOptions = [
+  { value: "default", label: "Default" },
+  { value: "title-asc", label: "Title (A–Z)" },
+  { value: "title-desc", label: "Title (Z–A)" },
+  { value: "progress-high", label: "Progress (High to Low)" },
+  { value: "progress-low", label: "Progress (Low to High)" },
+  { value: "status", label: "Status" },
+];
 
 export const courses = [
   {
@@ -91,10 +107,36 @@ export const courses = [
 // Complete, static Tailwind class strings — required so the class scanner
 // picks them up (dynamic class names like `bg-${color}-500` won't work).
 export const statusStyles = {
-  Completed: "bg-success-100 text-success-700 border border-success-500/30",
-  "In Progress": "bg-warning-100 text-warning-700 border border-warning-500/30",
-  "Not Started": "bg-slate-100 text-slate-600 border border-slate-200",
+  Completed:
+    "bg-success-100 text-success-700 border border-success-500/30 dark:bg-success-600/20 dark:text-success-400 dark:border-success-500/40",
+  "In Progress":
+    "bg-warning-100 text-warning-700 border border-warning-500/30 dark:bg-warning-600/20 dark:text-warning-400 dark:border-warning-500/40",
+  "Not Started":
+    "bg-slate-100 text-slate-600 border border-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:border-slate-600",
 };
+
+const STATUS_ORDER = { "In Progress": 0, "Not Started": 1, Completed: 2 };
+
+export function sortCourses(courses, sortBy) {
+  const sorted = [...courses];
+
+  switch (sortBy) {
+    case "title-asc":
+      return sorted.sort((a, b) => a.title.localeCompare(b.title));
+    case "title-desc":
+      return sorted.sort((a, b) => b.title.localeCompare(a.title));
+    case "progress-high":
+      return sorted.sort((a, b) => b.progress - a.progress);
+    case "progress-low":
+      return sorted.sort((a, b) => a.progress - b.progress);
+    case "status":
+      return sorted.sort(
+        (a, b) => (STATUS_ORDER[a.status] ?? 99) - (STATUS_ORDER[b.status] ?? 99)
+      );
+    default:
+      return sorted;
+  }
+}
 
 export const progressBarStyles = {
   Completed: "bg-success-600",
