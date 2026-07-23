@@ -49,6 +49,15 @@
   .section-eyebrow {
     @apply text-xs font-semibold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400;
   }
+
+  /* Shared style for the navbar's circular icon buttons (dark mode toggle,
+     search, notification bell, mobile menu) — previously duplicated across
+     each button in Navbar.jsx. */
+  .icon-btn {
+    @apply flex h-10 w-10 items-center justify-center rounded-full text-slate-500
+      transition-colors duration-200 hover:bg-slate-100 hover:text-brand-700
+      active:scale-95 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-brand-400;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

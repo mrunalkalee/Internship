@@ -6,6 +6,7 @@ export default function CourseCard({
   compact = false,
   isFavorite = false,
   onToggleFavorite,
+  onViewDetails,
 }) {
   const { id, title, description, category, image, progress, status } = course;
 
@@ -74,13 +75,27 @@ export default function CourseCard({
           />
         </div>
 
-        <button type="button" className="btn-primary mt-5 w-full">
-          {status === "Completed"
-            ? "View Certificate"
-            : status === "Not Started"
-              ? "Start Course"
-              : "Continue Learning"}
-        </button>
+        {/* UI fix — buttons now sit in a responsive row with consistent
+            gap/height instead of a single full-width button, so adding a
+            second action doesn't cause misalignment on narrow cards. */}
+        <div className="mt-5 flex flex-wrap gap-2.5">
+          <button type="button" className="btn-primary min-w-[140px] flex-1">
+            {status === "Completed"
+              ? "View Certificate"
+              : status === "Not Started"
+                ? "Start Course"
+                : "Continue Learning"}
+          </button>
+          {onViewDetails && (
+            <button
+              type="button"
+              onClick={() => onViewDetails(course)}
+              className="btn-secondary min-w-[140px] flex-1"
+            >
+              View Details
+            </button>
+          )}
+        </div>
       </div>
     </article>
   );

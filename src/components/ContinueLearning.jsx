@@ -4,6 +4,7 @@ export default function ContinueLearning({
   courses,
   isFavorite,
   onToggleFavorite,
+  onViewDetails,
 }) {
   const inProgressCourses = courses.filter(
     (course) => course.status === "In Progress"
@@ -30,6 +31,7 @@ export default function ContinueLearning({
               compact
               isFavorite={isFavorite(course.id)}
               onToggleFavorite={onToggleFavorite}
+              onViewDetails={onViewDetails}
             />
           ))}
         </div>

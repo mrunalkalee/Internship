@@ -16,6 +16,7 @@ export default function CourseGrid({
   onToggleFavorite,
   activeCategory,
   onCategoryChange,
+  onViewDetails,
 }) {
   const [query, setQuery] = useState("");
   const [sortBy, setSortBy] = useLocalStorage("learnsphere-sort", "default");
@@ -124,6 +125,7 @@ export default function CourseGrid({
                 course={course}
                 isFavorite={isFavorite(course.id)}
                 onToggleFavorite={onToggleFavorite}
+                onViewDetails={onViewDetails}
               />
             ))}
           </div>
